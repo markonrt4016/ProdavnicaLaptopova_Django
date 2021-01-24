@@ -1,0 +1,28 @@
+{% extends "SalonAutomobila/base.html" %}
+{% load static %}
+{% block title %} {% if segment %}{{ segment.naziv }}{% else %}Automobili{% endif %}
+{% endblock %}
+{% block content %}
+<div id="sidebar"><h3>Segmenti</h3><ul>
+<li {% if not segment %}class="selected"{% endif %}>
+<a href="{% url "SalonAutomobila:ListaAutomobila" %}">All</a> </li>
+{% for c in segmenti %}
+<li {% if segment.slug == c.slug %}class="selected"{% endif %}>
+<a href="{{ c.ApsolutniURL }}">{{ c.naziv }}</a>
+</li>
+{% endfor %}
+</ul></div>
+<div id="main" class="product-list">
+<h1>{% if segment %}{{ segment.naziv }}{% else %}Automobili{% endif %}</h1>
+{% for automobil in automobili %}
+<div class="item">
+<a href="{{ automobil.ApsolutniURL }}">
+<img src="{% if automobil.slika %}{{ automobil.slika.url }}
+{% else %}{% static "img/no_image.png" %}{% endif %}"></a>
+<a href="{{ automobil.ApsolutniURL }}">{{ automobil.naziv }}</a>
+<br>
+&euro;{{ automobil.cena }}
+</div>
+{% endfor %}
+</div>
+{% endblock %} 

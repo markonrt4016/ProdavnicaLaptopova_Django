@@ -1,0 +1,20 @@
+{% extends "SalonAutomobila/base.html" %}
+{% load static %}
+{% block title %}
+{{ automobil.naziv }}
+{% endblock %}
+{% block content %}
+<div class="product-detail">
+<img src="{% if automobil.slika %}{{ automobil.slika.url }}
+{% else %} {% static "img/no_image.png" %}{% endif %}">
+<h1>{{ automobil.naziv }}</h1>
+<h2>
+<a href="{{ automobil.segment.ApsolutniURL }}">
+{{ automobil.segment }}
+</a>
+</h2>
+<p class="price">&euro;{{ automobil.cena }}</p>
+<!-- ovde ce biti za korpu-->
+{{ automobil.opis|linebreaks }}
+</div>
+{% endblock %}
