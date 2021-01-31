@@ -1,0 +1,28 @@
+{% extends "ProdavnicaLaptopova/base.html" %}
+{% load static %}
+{% block title %} {% if segment %}{{ segment.naziv }}{% else %}Laptopovi{% endif %}
+{% endblock %}
+{% block content %}
+<div id="sidebar"><h3>Segmenti</h3><ul>
+<li {% if not segment %}class="selected"{% endif %}>
+<a href="{% url "ProdavnicaLaptopova:ListaLaptopova" %}">All</a> </li>
+{% for c in segmenti %}
+<li {% if segment.slug == c.slug %}class="selected"{% endif %}>
+<a href="{{ c.ApsolutniURL }}">{{ c.naziv }}</a>
+</li>
+{% endfor %}
+</ul></div>
+<div id="main" class="product-list">
+<h1>{% if segment %}{{ segment.naziv }}{% else %}Laptopovi{% endif %}</h1>
+{% for laptop in laptopovi %}
+<div class="item">
+<a href="{{ laptop.ApsolutniURL }}">
+<img src="{% if laptop.slika %}{{ laptop.slika.url }}
+{% else %}{% static "img/no_image.png" %}{% endif %}"></a>
+<a href="{{ laptop.ApsolutniURL }}">{{ laptop.naziv }}</a>
+<br>
+&euro;{{ laptop.cena }}
+</div>
+{% endfor %}
+</div>
+{% endblock %} 

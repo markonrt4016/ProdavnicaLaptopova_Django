@@ -1,0 +1,26 @@
+{% extends "ProdavnicaLaptopova/base.html" %}
+{% load static %}
+{% block title %}
+    {{ laptop.naziv }}
+{% endblock %}
+{% block content %}
+    <div class="product-detail">
+        <img src="{% if laptop.slika %}{{ laptop.slika.url }}
+{% else %} {% static "img/no_image.png" %}{% endif %}">
+        <h1>{{ laptop.naziv }}</h1>
+        <h2>
+            <a href="{{ laptop.segment.ApsolutniURL }}">
+                {{ laptop.segment }}
+            </a>
+        </h2>
+        <p class="price">&euro;{{ laptop.cena }}</p>
+        <form action="{% url "Korpa:DodajUKorpu" laptop.id %}"
+              method="post">
+            {{ formazadodavanjelaptopaukorpu }}
+            {% csrf_token %}
+            <input type="submit" value="Dodaj u korpu">
+        </form>
+        {{ laptop.opis|linebreaks }}
+{#        <p id="demo">{% url "Korpa:DodajUKorpu" laptop.id %}</p>#}
+    </div>
+{% endblock %}
